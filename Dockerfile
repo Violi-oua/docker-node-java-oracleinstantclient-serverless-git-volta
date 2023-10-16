@@ -18,6 +18,14 @@ RUN mkdir -p /usr/share/man/man1
 RUN apt-get install -yq adoptopenjdk-8-hotspot
 ENV JAVA_HOME /usr/lib/jvm/adoptopenjdk-8-hotspot-amd64
 
+# install Volta
+ENV BASH_ENV ~/.bashrc
+ENV VOLTA_HOME /root/.volta
+ENV PATH $VOLTA_HOME/bin:$PATH
+RUN apt-get install -yq curl
+RUN curl https://get.volta.sh | bash
+RUN volta install node@16.18.0
+
 # install locales
 RUN apt-get install -yq locales
 RUN sed -i -e 's/# \(en_US\.UTF-8 .*\)/\1/' /etc/locale.gen && \
